@@ -1,0 +1,65 @@
+/*start data table  component*/
+table.data{
+  width: 100%;
+  text-align: center;
+}
+.data.upperControl,
+.data.lowerControl {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.data.upperControl .inputs,
+.data.lowerControl .pagination {
+  display: flex;
+  align-items: center;
+}
+.data.upperControl .inputs label {
+  margin: 0 5px;
+  font-weight: 600;
+}
+.data.upperControl .inputs input {
+  text-align: center;
+  border-radius: 5px;
+  border: 0.5px solid var(--main-color);
+  outline: none;
+}
+.data.upperControl .inputs .search {
+  width: 200px;
+}
+.data.upperControl .inputs .show {
+  width: 50px;
+}
+.data.lowerControl {
+  font-weight: 600;
+}
+.data.lowerControl .pagination li {
+  margin-left: 5px;
+}
+.data.lowerControl .pagination li:first-child,
+.data.lowerControl .pagination li:last-child {
+  cursor: pointer;
+}
+.data.lowerControl .pagination li.count {
+  border: 1px solid var(--main-color);
+  width: 23px;
+  height: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.data.lowerControl .pagination li.count.active {
+background-color: var(--main-color);
+color: #fff;
+}
+
+.data.enquiry {
+  width: 100%;
+  text-align: center;
+  font-size: larger;
+  font-weight: 600;
+  box-shadow: inset -2px -2px 9px 1px #1c184c6e;
+  padding: 5px;
+}
+/*end data table */
