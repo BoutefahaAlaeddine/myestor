@@ -10,14 +10,12 @@
     </div>
     <h5><?= $text_labels_privilege_group_name ?></h5>
     <ul class="col">
+      <?php foreach ($privileges as $privilege) :?>
       <li class="d-flex a-itm-cn">
-        <input type="checkbox" id="for-1" class="check m-lef-5">
-        <label for="for-1">حذف مورد</label>
+        <input name="privileges[]"   value="<?=$privilege->PrivilegeId ?>" type="checkbox" id="for-<?=$privilege->PrivilegeId?>" class="check m-lef-5">
+        <label for="for-<?=$privilege->PrivilegeId?>"><?=$privilege->PrivilegeTitle?></label>
       </li>
-      <li class="d-flex a-itm-cn">
-        <input  type="checkbox" id="for-2" class="check m-lef-5">
-        <label for="for-2">حذف مورد</label>
-      </li>
+      <?php endforeach; ?>
     </ul>
     <button class="pad-5 c-white t-alg-cn b-rad-5 t-trn-cp m-top-10 c-pointer" type="submit" name="submit"> <?= $text_save_group ?></button>
   </form>

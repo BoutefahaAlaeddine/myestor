@@ -1,5 +1,5 @@
 <div class="action p-rel pad-20 m-top-10 w-full b-rad-5">
-  <h4 class="p-abs c-white pad-5"> الاضافة</h4>
+  <h4 class="p-abs c-white pad-5"><?=$text_data_privilege?></h4>
   <form action="" method="post" class="pad-10">
     <div class="row d-flex">
       <div class="inputs flex pad-5 p-rel">

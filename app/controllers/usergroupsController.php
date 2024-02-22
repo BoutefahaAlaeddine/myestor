@@ -1,34 +1,48 @@
 <?php
+
 namespace PHPMVC\Controllers;
+
 use PHPMVC\models\UserGroupsModel;
+use PHPMVC\models\PrivilegeModel;
+use PHPMVC\models\UserGroupPrivilegeModel;
 use PHPMVC\LIB\InputFilter;
 use PHPMVC\LIB\Helper;
 
 class UserGroupsController extends abstractController
-{use  InputFilter;
+{
+  use  InputFilter;
   use  Helper;
 
   public function defaultAction()
-  {$this->_language->load("template.common");
+  {
+    $this->_language->load("template.common");
     $this->_language->load("usergroups.default");
     //تخزين الباينات في مصفوفة لاستدعئها في الفيو
-     $this->_data["groups"] = UserGroupsModel::getAll();
+    $this->_data["groups"] = UserGroupsModel::getAll();
     $this->_view();
   }
 
-  
+
   public function addAction()
   {
     //عمل رفع لمفات صفحة الادد
     $this->_language->load("template.common");
     $this->_language->load("usergroups.labels");
-
+    $this->_data["privileges"] = PrivilegeModel::getAll();
     if (isset($_POST["submit"])) {
       $GroupName = $this->filterString($_POST["GroupName"]);
       $UserGroups = new UserGroupsModel($GroupName);
+
       if ($UserGroups->save()) {
-        $_SESSION["message"] = "Group, Save Successfully";
-        $this->redirect("usergroups");
+
+        if (isset($_POST["privileges"]) && is_array($_POST["privileges"])) {
+          foreach ($_POST["privileges"] as $privilegeId) {
+            $groupPrivilege = new UserGroupPrivilegeModel($UserGroups->GroupId, $privilegeId);
+            $groupPrivilege->save();
+          }
+          $_SESSION["message"] = "Group, Save Successfully";
+          $this->redirect("usergroups");
+        }
       }
       // print_r($emp);
     }
@@ -50,8 +64,16 @@ class UserGroupsController extends abstractController
       }
 
       $this->_data["group"] = $UserGroup;
+      $this->_data["privileges"] = PrivilegeModel::getAll();
+      $groupPrivileges = UserGroupPrivilegeModel::getBy(["GroupId" => $UserGroup->GroupId]);
+      $extractedPrivilegesIds = [];
 
-
+      if (false !== $groupPrivileges) {
+        foreach ($groupPrivileges as $privilege) {
+          $extractedPrivilegesIds[] = $privilege->PrivilegeId;
+        }
+      }
+      $this->_data["groupPrivileges"] = $extractedPrivilegesIds;
       //update
       if (isset($_POST["submit"])) {
         $GroupName = $this->filterString($_POST["GroupName"]);
@@ -59,6 +81,27 @@ class UserGroupsController extends abstractController
         //لتاكيد انها تحديث
         $UserGroup->GroupId =  $GroupId;
         if ($UserGroup->save()) {
+          if (isset($_POST["privileges"]) && is_array($_POST["privileges"])) {
+
+            //مقارنة المصفوفة السابقة بالجديدة لمعرفةمذا الغينا
+            $PrivilegesIdsToBeDeleted = array_diff($extractedPrivilegesIds, $_POST["privileges"]);
+
+            //مقارنة المصفوفة السابقة بالجديدة لمعرفةمذا اضفنا
+            $PrivilegesIdsToBeAdded = array_diff($_POST["privileges"], $extractedPrivilegesIds);
+
+            //ازالة البريفلج لي الغيناهم
+            foreach ($PrivilegesIdsToBeDeleted as $deletePrivilege) {
+              $unwantedPrivilege = UserGroupPrivilegeModel::getBy(["PrivilegeId" => $deletePrivilege, "GroupId" => $UserGroup->GroupId]);
+              $unwantedPrivilege[0]->delete();
+            }
+
+            //اضافة الصلاحيات لي اضفتهم
+
+            foreach ($PrivilegesIdsToBeAdded as $privilegeId) {
+              $groupPrivilege = new UserGroupPrivilegeModel($UserGroup->GroupId, $privilegeId);
+              $groupPrivilege->save();
+            }
+          }
           $_SESSION["message"] = "group, Save Successfully";
           $this->redirect("usergroups");
         }
@@ -81,5 +124,4 @@ class UserGroupsController extends abstractController
       $this->redirect("usergroups");
     }
   }
-
 }

@@ -33,7 +33,7 @@
   background-color: var(--third-color);
   color: #fff;
 }
-.wrapper .header .leftSide li .other li:not(:last-child) a{
+.wrapper .header .leftSide li .other li:not(:last-child) a {
   border-bottom: 0.5px solid var(--second-color);
 }
 
@@ -113,28 +113,28 @@
 .content .controller {
   margin-top: 100px;
 }
-.content  .controller a.add {
+.content .controller a.add {
   background-color: var(--main-color);
   width: 130px;
 }
-.content  .controller a.add:hover {
+.content .controller a.add:hover {
   background-color: var(--second-color);
 }
 
-.content  .controller .tableInfo tr th {
+.content .controller .tableInfo tr th {
   background-color: var(--second-color);
 }
 
-.content  .controller .tableInfo tbody tr td,
-.content  .controller .tableInfo thead tr th {
+.content .controller .tableInfo tbody tr td,
+.content .controller .tableInfo thead tr th {
   width: 115px;
   box-shadow: inset -2px -2px 9px 1px #1c184c6e;
 }
 
-.content  .controller .tableInfo tr td a:first-child {
+.content .controller .tableInfo tr td a:first-child {
   color: green;
 }
-.content  .controller .tableInfo tr td a:last-child {
+.content .controller .tableInfo tr td a:last-child {
   color: rgb(227, 53, 53);
 }
 /* end controller */
@@ -154,20 +154,19 @@
   border-bottom: 1px solid var(--main-color);
 }
 
-.content .action form .row .inputs span{
+.content .action form .row .inputs span {
   content: "";
   width: 0%;
   height: 2px;
   background-color: var(--main-color);
 }
 
-
 .content .action form .row .inputs:not(:last-child) {
   border-right: 1px solid var(--main-color);
 }
 
-.content .action form  .inputs input,
-.content .action  .inputs select {
+.content .action form .inputs input,
+.content .action .inputs select {
   width: 100%;
   border: none;
   outline: none;
@@ -182,7 +181,6 @@
   opacity: 0;
   transition: var(--transition);
 }
-
 
 .content .action select {
   border: 1px solid #fff;
@@ -216,9 +214,15 @@
 .content .action form .row:nth-child(2) .inputs:nth-child(4) label {
   opacity: 1;
 }
-.content .action form ul{
+.content .action form h5 {
+  font-size: 17px;
+}
+.content .action form ul {
   border-bottom: 1px solid var(--main-color);
+}
 
+.content .action form ul li {
+  font-weight: 700;
 }
 /*end add & edit actions*/
 

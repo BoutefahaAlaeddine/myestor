@@ -105,8 +105,23 @@ class AbstractModel
     }
     return false;
   }
+//تجلب العناصر وبكتابة اوامر السيليكت
+  public static function getBy($columns, $options = array())
+    {
+        $whereClauseColumns = array_keys($columns);
+        $whereClauseValues = array_values($columns);
+        $whereClause = [];
+        for ( $i = 0, $ii = count($whereClauseColumns); $i < $ii; $i++ ) {
+            $whereClause[] = $whereClauseColumns[$i] . ' = "' . $whereClauseValues[$i] . '"';
+        }
+        $whereClause = implode(' AND ', $whereClause);
+        $sql = 'SELECT * FROM ' . static::$tableName . '  WHERE ' . $whereClause;
+        return static::get($sql, $options);
+    }
+
+
   //جلب عناصر ب اي شي
-  public function get($sql, $options = array())
+  public static function get($sql, $options = array())
   {
     $connection = DB::connect();
     $stmt = $connection->prepare($sql);
