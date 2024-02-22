@@ -1,9 +1,4 @@
-<?php
-
-?>
-  <h3 class="welcome-title">
-  <?= $text_header?>
-  </h3>
+<h3 class="pad-5"><?= $text_header?></h3>
   
 <div class="controller">
   <?php

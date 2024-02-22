@@ -12,6 +12,7 @@ return [
 
   "Header_resources" => [
       "css" => [
+          "myFramework" => "css/myFramework.css",
           "main" => "css/main.css",
           "main-ar" => "css/main.ar.css",
           "all.min" => "css/all.min.css",

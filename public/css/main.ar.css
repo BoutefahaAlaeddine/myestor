@@ -52,3 +52,14 @@ body {
   left: auto;
   right: -50px;
 }
+
+
+.content .action form .row .inputs:not(:last-child) {
+  border-left: 1px solid var(--main-color);
+  border-right: 0;
+}
+
+.content .action form .row .inputs span{
+  right:0;
+  left: auto;
+}

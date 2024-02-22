@@ -1,9 +1,4 @@
-<?php
-
-?>
-  <h3 class="welcome-title">
-  <?= $text_header?>
-  </h3>
+<h3 class="pad-5 wid-fc b-rad-5 c-white"><?= $text_header?></h3>
   
 <div class="controller">
   <?php
@@ -17,17 +12,17 @@
 
   ?>
 
-  <a href="<?= MAIN_LINK ?>user/add" class="add"><?= $text_add_user ?></a>
+  <a href="<?= MAIN_LINK ?>user/add" class="add pad-5 c-white m-bot-5 t-alg-cn b-rad-5 t-trn-cp"><?= $text_add_user ?></a>
 
   <table class="tableInfo data">
     <thead>
       <tr>
-        <th><?= $text_table_username ?></th>
-        <th><?= $text_table_group ?></th>
-        <th><?= $text_table_email ?></th>
-        <th><?= $text_table_subscription_date ?></th>
-        <th><?= $text_table_last_login ?></th>
-        <th><?= $text_table_control ?></th>
+        <th class="c-white t-trn-cp pad-10"><?= $text_table_username ?></th>
+        <th class="c-white t-trn-cp pad-10"><?= $text_table_group ?></th>
+        <th class="c-white t-trn-cp pad-10"><?= $text_table_email ?></th>
+        <th class="c-white t-trn-cp pad-10"><?= $text_table_subscription_date ?></th>
+        <th class="c-white t-trn-cp pad-10"><?= $text_table_last_login ?></th>
+        <th class="c-white t-trn-cp pad-10"><?= $text_table_control ?></th>
       </tr>
     </thead>
 
@@ -40,16 +35,16 @@
         foreach ($users as $user) :
       ?>
           <tr>
-            <td> <?php echo $user->Username ?></td>
-            <td> <?php echo $user->GroupName ?></td>
-            <td> <?php echo $user->Email ?></td>
-            <td> <?php echo $user->PhoneNumber ?></td>
-            <td> <?php echo $user->SubscriptionData ?></td>
-            <td> <?php echo $user->LastLogon ?></td>
-            <td>
-              <a  href="<?= MAIN_LINK . "user/edit/" . $user->UserId ?>"><i class="fa-solid fa-pen-to-square"></i><?= $text_table_edit ?></a>
+            <td class="pad-10"> <?php echo $user->Username ?></td>
+            <td class="pad-10"> <?php echo $user->GroupName ?></td>
+            <td class="pad-10"> <?php echo $user->Email ?></td>
+            <td class="pad-10"> <?php echo $user->PhoneNumber ?></td>
+            <td class="pad-10"> <?php echo $user->SubscriptionData ?></td>
+            <td class="pad-10"> <?php echo $user->LastLogon ?></td>
+            <td class="pad-10">
+              <a class="t-trn-cp f-weg-bold" href="<?= MAIN_LINK . "user/edit/" . $user->UserId ?>"><i class="fa-solid fa-pen-to-square"></i><?= $text_table_edit ?></a>
 
-              | <a href="<?= MAIN_LINK . "user/delete/" . $user->UserId ?>">onclick="if(!confirm(<?=$text_table_control_delete_confirm?>))return false;"><i class="fa fa_trash"></i> <?= $text_table_delete ?></a>
+              | <a class="t-trn-cp f-weg-bold" href="<?= MAIN_LINK . "user/delete/" . $user->UserId ?>">onclick="if(!confirm(<?=$text_table_control_delete_confirm?>))return false;"><i class="fa fa_trash"></i> <?= $text_table_delete ?></a>
             </td>
           </tr>
 

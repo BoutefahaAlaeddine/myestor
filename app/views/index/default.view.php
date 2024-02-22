@@ -1,3 +1,1 @@
-<h3 class="welcome-title">
-  <?= $text_header_welcome?>
-  </h3>
+<h3 class="pad-5 wid-fc b-rad-5 c-white"><?= $text_header_welcome?></h3>

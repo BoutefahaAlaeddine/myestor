@@ -1,9 +1,4 @@
-<?php
-
-?>
-  <h3 class="welcome-title">
-  <?= $text_header?>
-  </h3>
+  <h3 class="pad-5 wid-fc b-rad-5 c-white"><?= $text_header?></h3>
   
 <div class="controller">
   <?php
@@ -17,13 +12,13 @@
 
   ?>
 
-  <a href="<?= MAIN_LINK ?>usergroups/add" class="add"><?= $text_add_group ?></a>
+  <a href="<?= MAIN_LINK ?>usergroups/add" class="add pad-5 c-white m-bot-5 t-alg-cn b-rad-5 t-trn-cp"><?= $text_add_group ?></a>
 
   <table class="tableInfo data">
     <thead>
       <tr>
-        <th><?= $text_table_groups_name ?></th>
-        <th><?= $text_table_control ?></th>
+        <th class="c-white t-trn-cp pad-10"><?= $text_table_groups_name ?></th>
+        <th class="c-white t-trn-cp pad-10"><?= $text_table_control ?></th>
       </tr>
     </thead>
 
@@ -36,11 +31,11 @@
         foreach ($groups as $group) :
       ?>
           <tr>
-            <td> <?php echo $group->GroupName ?></td>
-            <td>
-              <a  href="<?= MAIN_LINK . "usergroups/edit/" . $group->GroupId ?>"><i class="fa-solid fa-pen-to-square"></i><?= $text_table_edit ?></a>
+            <td class="pad-10"> <?php echo $group->GroupName ?></td>
+            <td class="pad-10">
+              <a class="t-trn-cp f-weg-bold" href="<?= MAIN_LINK . "usergroups/edit/" . $group->GroupId ?>"><i class="fa-solid fa-pen-to-square"></i><?= $text_table_edit ?></a>
 
-              | <a href="<?= MAIN_LINK . "usergroups/delete/" . $group->GroupId ?>" onclick="if(!confirm(<?=$text_table_control_delete_confirm?>))return false;"><i class="fa fa_trash"></i> <?= $text_table_delete ?></a>
+              | <a class="t-trn-cp f-weg-bold" href="<?= MAIN_LINK . "usergroups/delete/" . $group->GroupId ?>" onclick="if(!confirm(<?=$text_table_control_delete_confirm?>))return false;"><i class="fa fa_trash"></i> <?= $text_table_delete ?></a>
             </td>
           </tr>
 
