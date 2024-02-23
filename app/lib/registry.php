@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPMVC\languages;
+namespace PHPMVC\LIB;
 //هدف انشاء هذا الكلاس هو بهدف االتحكم في اي كائن من اي مكان (هنا سنتحكم بالكائن السيشون وللغة و تيمبليت)
 class Registry
 {

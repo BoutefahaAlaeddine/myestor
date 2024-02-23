@@ -1,7 +1,7 @@
 <?php
 //لربط الكلاسات مع كلاسات الكنترولر
 namespace PHPMVC;
-use PHPMVC\languages\Registry;
+use PHPMVC\LIB\Registry;
 use PHPMVC\LIB\FrontController;
 use PHPMVC\LIB\Template;
 use PHPMVC\LIB\Language;

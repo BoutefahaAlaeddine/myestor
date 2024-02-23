@@ -2,7 +2,7 @@
 
 namespace PHPMVC\LIB;
 
-use PHPMVC\languages\Registry;
+use PHPMVC\LIB\Registry;
 
 //استقبال الريكويست 
 //تحديد action(الميتود),$controller("الكلاس"),params(هوما ?id=54&?cat=ff)
