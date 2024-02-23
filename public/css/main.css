@@ -113,9 +113,25 @@
 .content .controller {
   margin-top: 100px;
 }
+
+.content .controller .message.t1 {
+background-color: #27ae60;
+}
+
+.content .controller .message.t2 {
+background-color: #e74c3c;
+}
+.content .controller .message.t3 {
+background-color: #2980b9;
+}
+.content .controller .message.t4 {
+background-color: #f39c12;
+}
 .content .controller a.add {
   background-color: var(--main-color);
   width: 130px;
+  margin-top: 5px;
+  display: block;
 }
 .content .controller a.add:hover {
   background-color: var(--second-color);

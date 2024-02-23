@@ -1,15 +1,17 @@
-<h3 class="pad-5 wid-fc b-rad-5 c-white"><?= $text_header?></h3>
-  
+<h3 class="pad-5 wid-fc b-rad-5 c-white"><?= $text_header ?></h3>
+
 <div class="controller">
   <?php
-  if (isset($_SESSION["message"])) { ?>
-    <p class="message <?= isset($error) ? "error" : "" ?> ">
-      <?= $_SESSION["message"] ?>
-    </p>
+  $messages = $this->messenger->getMessage();
+  if (!empty($messages)) :
+    foreach ($messages as $message) :
+    ?>
+      <p class="message t<?=$message[1]?> c-white pad-5 t-alg-cn">
+        <?= $message[0] ?>
+      </p>
   <?php
-    unset($_SESSION["message"]);
-  }
-
+    endforeach;
+  endif;
   ?>
 
   <a href="<?= MAIN_LINK ?>privilege/add" class="add pad-5 c-white m-bot-5 t-alg-cn b-rad-5 t-trn-cp"><?= $text_add_privilege ?></a>
@@ -34,13 +36,13 @@
             <td class="pad-10"> <?= $privilege->PrivilegeTitle ?></td>
             <td class="pad-10">
               <a class="t-trn-cp f-weg-bold" href="<?= MAIN_LINK . "privilege/edit/" . $privilege->PrivilegeId ?>"><i class="fa-solid fa-pen-to-square"></i><?= $text_table_edit ?></a>
-              | <a class="t-trn-cp f-weg-bold"  href="<?= MAIN_LINK . "privilege/delete/" . $privilege->PrivilegeId ?>"onclick="if(!confirm(<?=$text_table_control_delete_confirm?>))return false;"><i class="fa-solid fa-trash"></i> <?= $text_table_delete ?></a>
+              | <a class="t-trn-cp f-weg-bold" href="<?= MAIN_LINK . "privilege/delete/" . $privilege->PrivilegeId ?>" onclick="if(!confirm(<?= $text_table_control_delete_confirm ?>))return false;"><i class="fa-solid fa-trash"></i> <?= $text_table_delete ?></a>
             </td>
           </tr>
 
-        <?php
+      <?php
         endforeach;
-      
+
       endif;
       ?>
     </tbody>

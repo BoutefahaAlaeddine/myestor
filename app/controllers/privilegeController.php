@@ -28,7 +28,7 @@ class PrivilegeController extends abstractController
       $privilegeTitle = $this->filterString($_POST["PrivilegeTitle"]);
       $privilege = new PrivilegeModel($privilege, $privilegeTitle);
       if ($privilege->save()) {
-        $_SESSION["message"] = "Privilege, Save Successfully";
+      $this->messenger->add("Privilege, Save Successfully");
         $this->redirect("privilege");
       }
       // print_r($emp);

@@ -2,6 +2,7 @@
 //لربط الكلاسات مع كلاسات الكنترولر
 namespace PHPMVC;
 use PHPMVC\LIB\Registry;
+use PHPMVC\LIB\Messenger;
 use PHPMVC\LIB\FrontController;
 use PHPMVC\LIB\Template;
 use PHPMVC\LIB\Language;
@@ -41,10 +42,13 @@ $template = new Template($template_pars);
 
 $language = new Language($template_pars);
 
+$messenger=Messenger::geInstance($session);
+
 //اي كائن يحتاجو جميع الكنترولولز نتاوعي حطو في الريجيستري
 $registry=Registry::geInstance();
 $registry->session=$session;
 $registry->language=$language;
+$registry->messenger=$messenger;
 
 $frontController = new FrontController($template, $registry);
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPMVC\LIB;
 
 class AppSessionHandler extends \SessionHandler
@@ -7,14 +8,14 @@ class AppSessionHandler extends \SessionHandler
   // اسم السيشون افتراضي  
   private $sessionName = SESSION_NAME;
   // وقت السيشون ينتهي بعد اطفاء المتصفح
-  private $sessionMaxLifetime =SESSION_MAX_LIFE_TIME;
+  private $sessionMaxLifetime = SESSION_MAX_LIFE_TIME;
   // كاش سكريتي
   private $sessionSSl = SESSION_SSL;
   // يمكن التحكم بجافا سكريبت
   private $sessionHTTPOnly = SESSION_HTTP_ONLY;
   // من أين يبدأ قراءة السيشون من ملف الملف هذا وبعدها الأجزاء نتواعد
   private $sessionPth = "/";
-  private $sessionDomain =SESSION_DOMAIN;
+  private $sessionDomain = SESSION_DOMAIN;
 
   private  $sessionCipherAlgo = "AES-128-CBC";
   private  $sessionCipherKey = "*/Alilo&Dz2024/@";
@@ -65,7 +66,10 @@ class AppSessionHandler extends \SessionHandler
   {
     return isset($_SESSION[$key]);
   }
-
+  public function __unset($Key)
+  {
+    unset($_SESSION[$Key]);
+  }
 
   public function read(string $id): string|false
   {
@@ -156,4 +160,3 @@ class AppSessionHandler extends \SessionHandler
     return false;
   }
 }
-

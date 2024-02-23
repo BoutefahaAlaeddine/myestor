@@ -1,22 +1,19 @@
-<?php
-//  var_dump($this->session) 
-  ?>
-
 <h3 class="pad-5 wid-fc b-rad-5 c-white"><?= $text_header?></h3>
   
 <div class="controller">
+<?php
+  $messages = $this->messenger->getMessage();
+  if (!empty($messages)) :
+    foreach ($messages as $message) :
+    ?>
+      <p class="message t<?=$message[1]?>  c-white pad-5 t-alg-cn">
+        <?= $message[0] ?>
+      </p>
   <?php
-  if (isset($_SESSION["message"])) { ?>
-    <p class="message <?= isset($error) ? "error" : "" ?> ">
-      <?= $_SESSION["message"] ?>
-    </p>
-  <?php
-    unset($_SESSION["message"]);
-  }
-
+    endforeach;
+  endif;
   ?>
-
-  <a href="<?= MAIN_LINK ?>usergroups/add" class="add pad-5 c-white m-bot-5 t-alg-cn b-rad-5 t-trn-cp"><?= $text_add_group ?></a>
+  <a class="d-block m-top-5" href="<?= MAIN_LINK ?>usergroups/add" class="add pad-5 c-white m-bot-5 t-alg-cn b-rad-5 t-trn-cp"><?= $text_add_group ?></a>
 
   <table class="tableInfo data">
     <thead>
