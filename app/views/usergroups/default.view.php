@@ -1,4 +1,8 @@
-  <h3 class="pad-5 wid-fc b-rad-5 c-white"><?= $text_header?></h3>
+<?php
+//  var_dump($this->session) 
+  ?>
+
+<h3 class="pad-5 wid-fc b-rad-5 c-white"><?= $text_header?></h3>
   
 <div class="controller">
   <?php

@@ -2,6 +2,8 @@
 
 namespace PHPMVC\LIB;
 
+use PHPMVC\languages\Registry;
+
 //استقبال الريكويست 
 //تحديد action(الميتود),$controller("الكلاس"),params(هوما ?id=54&?cat=ff)
 class FrontController
@@ -13,13 +15,13 @@ class FrontController
   private $_action = "default";
   private $_prams = array();
   private $_template;
-  private $_language;
+  private $_registry;
 
-  public function __construct(Template $template,Language $language)
+  public function __construct(Template $template,Registry $registry)
   {
     $this->_parseUrl();
     $this->_template=$template;
-    $this->_language=$language;
+    $this->_registry=$registry;
   }
 
   //فصل الراوبط
@@ -76,8 +78,8 @@ class FrontController
     //نزيد نحقنو في الابستراكت
     $controller->setTemplate($this->_template);
 
-    //هذا الاوبجيت نتاع التمبليت لي حقنتو
-    $controller->setLanguage($this->_language);
+    //هذا الاوبجيت نتاع الريجستري لي حقنتو
+    $controller->setRegistry($this->_registry);
 
     //استدعاء الدالة
     $controller->$actionName();

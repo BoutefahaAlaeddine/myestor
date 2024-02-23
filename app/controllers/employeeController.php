@@ -13,9 +13,9 @@ class EmployeeController extends abstractController
   use  Helper;
 
   public function defaultAction()
-  {   $this->_language->load("template.common");
+  {   $this->language->load("template.common");
     //عمل رفع لمفات صفحة الديفولت
-    $this->_language->load("employee.default");
+    $this->language->load("employee.default");
     //تخزين الباينات في مصفوفة لاستدعئها في الفيو
     $this->_data["employees"] = EmployeeModel::getAll();
     $this->_view();
@@ -24,8 +24,8 @@ class EmployeeController extends abstractController
   public function addAction()
   {
     //عمل رفع لمفات صفحة الادد
-    $this->_language->load("template.common");
-    $this->_language->load("employee.add");
+    $this->language->load("template.common");
+    $this->language->load("employee.add");
 
     if (isset($_POST["submit"])) {
       $nom = $this->filterString($_POST["nom"]);
@@ -48,9 +48,9 @@ class EmployeeController extends abstractController
 
   public function editAction()
   {
-    $this->_language->load("template.common");
+    $this->language->load("template.common");
     //عمل رفع لمفات صفحة الاديت
-    $this->_language->load("employee.edit");
+    $this->language->load("employee.edit");
 
     //edit
     if (!empty($this->_params)) {

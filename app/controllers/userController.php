@@ -12,8 +12,8 @@ class UserController extends abstractController
   use  Helper;
 
   public function defaultAction()
-  {$this->_language->load("template.common");
-    $this->_language->load("user.default");
+  {$this->language->load("template.common");
+    $this->language->load("user.default");
     //تخزين الباينات في مصفوفة لاستدعئها في الفيو
     $this->_data["users"] = UserModel::getAll();
     $this->_view();

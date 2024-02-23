@@ -14,9 +14,13 @@ class UserGroupsController extends abstractController
   use  Helper;
 
   public function defaultAction()
-  {
-    $this->_language->load("template.common");
-    $this->_language->load("usergroups.default");
+   {
+//لاحض هنا اننا ممكن ان نتحكم بالسيشون
+    // var_dump($this->session);
+
+
+    $this->language->load("template.common");
+    $this->language->load("usergroups.default");
     //تخزين الباينات في مصفوفة لاستدعئها في الفيو
     $this->_data["groups"] = UserGroupsModel::getAll();
     $this->_view();
@@ -26,8 +30,8 @@ class UserGroupsController extends abstractController
   public function addAction()
   {
     //عمل رفع لمفات صفحة الادد
-    $this->_language->load("template.common");
-    $this->_language->load("usergroups.labels");
+    $this->language->load("template.common");
+    $this->language->load("usergroups.labels");
     $this->_data["privileges"] = PrivilegeModel::getAll();
     if (isset($_POST["submit"])) {
       $GroupName = $this->filterString($_POST["GroupName"]);
@@ -51,9 +55,9 @@ class UserGroupsController extends abstractController
 
   public function editAction()
   {
-    $this->_language->load("template.common");
+    $this->language->load("template.common");
     //عمل رفع لمفات صفحة الاديت
-    $this->_language->load("usergroups.labels");
+    $this->language->load("usergroups.labels");
 
     //edit
     if (!empty($this->_params)) {

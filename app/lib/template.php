@@ -2,7 +2,6 @@
 //هذا الكلاس المسوول على تنضيم رفع ملفات  التاملبت
 namespace PHPMVC\LIB;
 
-
 class Template
 {
 
@@ -10,12 +9,17 @@ class Template
   private $_templateParts;
   private $_action_view;
   private $_data;
-  private $_action;
-  private $_params;
+  private $_registry;
+
 
   public function __construct(array $parts)
   {
     $this->_templateParts = $parts;
+  }
+
+  public function __get($Key)
+  {
+    return $this->_registry->$Key;
   }
 
   //ه عمل ادخال لمسارات الفيو
@@ -30,15 +34,10 @@ class Template
     $this->_data = $data;
   }
 
-  public function setPramsAndAction($action, $params)
+  public function setRegistry($registry)
   {
-    $this->_action = $action;
-    $this->_params = $params;
+    $this->_registry = $registry;
   }
-
-
-
-
 
   private function renderTemplateStart()
   {
@@ -94,10 +93,10 @@ class Template
 
           if ($_SESSION["lang"] == "en") {
             if ($cssKey !== "main-ar") {
-              $output .= '<link rel="stylesheet" type="text/css" href="'.MAIN_SRC  . $path . '" />';
+              $output .= '<link rel="stylesheet" type="text/css" href="' . MAIN_SRC  . $path . '" />';
             }
           } else {
-            $output .= '<link rel="stylesheet" type="text/css" href="'.MAIN_SRC  . $path . '" />';
+            $output .= '<link rel="stylesheet" type="text/css" href="' . MAIN_SRC  . $path . '" />';
           }
         }
       }
@@ -120,7 +119,7 @@ class Template
       $js = $resources["js"];
       if (!empty($js)) {
         foreach ($js as $jsKey => $path) {
-          $output .= '<script src="'.MAIN_SRC  . $path . '"></script>';
+          $output .= '<script src="' . MAIN_SRC  . $path . '"></script>';
         }
       }
     }

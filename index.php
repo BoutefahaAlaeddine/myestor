@@ -1,7 +1,7 @@
 <?php
 //لربط الكلاسات مع كلاسات الكنترولر
 namespace PHPMVC;
-
+use PHPMVC\languages\Registry;
 use PHPMVC\LIB\FrontController;
 use PHPMVC\LIB\Template;
 use PHPMVC\LIB\Language;
@@ -29,8 +29,8 @@ if (!$session->isValidFingerPrint()) {
   $session->kill();
 }
 
-if (!isset($_SESSION["lang"])) {
-  $_SESSION["lang"] = APP_DEFAULT_LANGUAGE;
+if (!isset($session->lang)) {
+$session->lang = APP_DEFAULT_LANGUAGE;
 }
 
 //استدعاء ملف الكائن هنا وحقنه في فرونت كونترولور بدلا من استدعاءه داخل الابستراكت كونترولور 
@@ -41,9 +41,12 @@ $template = new Template($template_pars);
 
 $language = new Language($template_pars);
 
+//اي كائن يحتاجو جميع الكنترولولز نتاوعي حطو في الريجيستري
+$registry=Registry::geInstance();
+$registry->session=$session;
+$registry->language=$language;
 
-
-$frontController = new FrontController($template, $language);
+$frontController = new FrontController($template, $registry);
 
 
 $frontController->dispatch();

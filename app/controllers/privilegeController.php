@@ -10,8 +10,8 @@ class PrivilegeController extends abstractController
   use  Helper;
 
   public function defaultAction()
-  {$this->_language->load("template.common");
-    $this->_language->load("privilege.default");
+  {$this->language->load("template.common");
+    $this->language->load("privilege.default");
     //تخزين الباينات في مصفوفة لاستدعئها في الفيو
      $this->_data["privileges"] = PrivilegeModel::getAll();
     $this->_view();
@@ -20,8 +20,8 @@ class PrivilegeController extends abstractController
   public function addAction()
   {
     //عمل رفع لمفات صفحة الادد
-    $this->_language->load("template.common");
-    $this->_language->load("privilege.labels");
+    $this->language->load("template.common");
+    $this->language->load("privilege.labels");
 
     if (isset($_POST["submit"])) {
       $privilege = $this->filterString($_POST["Privilege"]);
@@ -38,9 +38,9 @@ class PrivilegeController extends abstractController
 
   public function editAction()
   {
-    $this->_language->load("template.common");
+    $this->language->load("template.common");
     //عمل رفع لمفات صفحة الاديت
-    $this->_language->load("privilege.labels");
+    $this->language->load("privilege.labels");
 
     //edit
     if (!empty($this->_params)) {
