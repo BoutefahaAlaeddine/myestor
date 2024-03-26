@@ -13,7 +13,7 @@
     endforeach;
   endif;
   ?>
-  <a class="d-block m-top-5" href="<?= MAIN_LINK ?>usergroups/add" class="add pad-5 c-white m-bot-5 t-alg-cn b-rad-5 t-trn-cp"><?= $text_add_group ?></a>
+  <a  href="<?= MAIN_LINK ?>usergroups/add" class="add pad-5 c-white m-bot-5 t-alg-cn b-rad-5 t-trn-cp"><?= $text_add_group ?></a>
 
   <table class="tableInfo data">
     <thead>
@@ -32,7 +32,7 @@
         foreach ($groups as $group) :
       ?>
           <tr>
-            <td class="pad-10"> <?php echo $group->GroupName ?></td>
+            <td class="pad-10"> <?= $group->GroupName ?></td>
             <td class="pad-10">
               <a class="t-trn-cp f-weg-bold" href="<?= MAIN_LINK . "usergroups/edit/" . $group->GroupId ?>"><i class="fa-solid fa-pen-to-square"></i><?= $text_table_edit ?></a>
 

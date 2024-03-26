@@ -11,9 +11,9 @@ class Language
     //اللغة الافتراضية
     $defaultLanguage = APP_DEFAULT_LANGUAGE;
 
-if (isset($_SESSION['lang'])) {
-  $defaultLanguage=$_SESSION["lang"];
-}
+    if (isset($_SESSION['lang'])) {
+      $defaultLanguage = $_SESSION["lang"];
+    }
 
     //هذا مسار الملف الصفحة لكي يترجم حسب الصفحة
     $languageFileToLoad = LANGUAGE_PATH . $defaultLanguage . DS . str_replace(".", DS, $path) . ".lang.php";
@@ -34,6 +34,24 @@ if (isset($_SESSION['lang'])) {
       trigger_error("Sorry the language file " . $path . " does not exists", E_USER_WARNING);
     }
   }
+  //هذي تجلب بها ترجمة اسم المدخل
+  public function get($key)
+  {
+    if (array_key_exists($key, $this->_dictionary)) {
+      return $this->_dictionary[$key];
+    }
+  }
+  //جلب الاخطاء نتاع الفايل من الديكسونري
+  public function feedKey($Key,$data){
+    if (array_key_exists($Key, $this->_dictionary)) {
+      //ربط كل مدخل بالخطا نتاعو
+      array_unshift($data,$this->_dictionary[$Key]);
+      //  print_r($data);
+      //  echo "</br>";
+    return call_user_func_array("sprintf",$data);
+    }
+  }
+
   public function getDictionary()
   {
     return $this->_dictionary;

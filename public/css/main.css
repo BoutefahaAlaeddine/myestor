@@ -113,18 +113,21 @@
 .content .controller {
   margin-top: 100px;
 }
+.content .message {
+  margin-top: 10px;
+}
 
-.content .controller .message.t1 {
+.content  .message.t1{
 background-color: #27ae60;
 }
 
-.content .controller .message.t2 {
-background-color: #e74c3c;
+.content  .message.t2 {
+background-color: #c0392b;
 }
-.content .controller .message.t3 {
+.content  .message.t3 {
 background-color: #2980b9;
 }
-.content .controller .message.t4 {
+.content  .message.t4 {
 background-color: #f39c12;
 }
 .content .controller a.add {
