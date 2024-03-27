@@ -39,44 +39,52 @@ trait Validate
   {
     return (bool)preg_match($this->_regexPatterns["alphanum"], $value);
   }
+  public function eq($value, $matchAgainst)
+  {
+    return $value == $matchAgainst;
+  }
+  public function eqField($value, $otherFiledValue)
+  {
+    return $value == $otherFiledValue;
+  }
   public function lt($value, $matchAgainst)
   {
-    if (is_numeric($value)) {
-      return $value < $matchAgainst;
-    } elseif (is_string($value)) {
+    if (is_string($value)) {
       return mb_strlen($value) < $matchAgainst;
+    } elseif (is_numeric($value)) {
+      return $value < $matchAgainst;
     }
   }
   public function gt($value, $matchAgainst)
   {
-    if (is_numeric($value)) {
-      return $value > $matchAgainst;
-    } elseif (is_string($value)) {
+    if (is_string($value)) {
       return mb_strlen($value) > $matchAgainst;
+    } elseif (is_numeric($value)) {
+      return $value > $matchAgainst;
     }
   }
   public function min($value, $min)
   {
-    if (is_numeric($value)) {
-      return $value >= $min;
-    } elseif (is_string($value)) {
+    if (is_string($value)) {
       return mb_strlen($value) >= $min;
+    } elseif (is_numeric($value)) {
+      return $value >= $min;
     }
   }
   public function max($value, $max)
   {
-    if (is_numeric($value)) {
-      return $value <= $max;
-    } elseif (is_string($value)) {
+    if (is_string($value)) {
       return mb_strlen($value) <= $max;
+    } elseif (is_numeric($value)) {
+      return $value <= $max;
     }
   }
   public function between($value, $min, $max)
   {
-    if (is_numeric($value)) {
-      return $value >= $min && $value <= $max;
-    } elseif (is_string($value)) {
+    if (is_string($value)) {
       return mb_strlen($value) >= $min && mb_strlen($value) <= $max;
+    } elseif (is_numeric($value)) {
+      return  $value >= $min && $value <= $max;
     }
   }
   public function floatLike($value, $beforeDP, $afterDP)
@@ -114,48 +122,70 @@ trait Validate
         // var_dump($validationRoles);
         //استعمال كل دوال القواعد التي وضعتها في كل انبوت
         foreach ($validationRoles as $validationRole) {
+          if (array_key_exists($fieldName, $errors))
+            continue;
           if (preg_match_all('/(min)\((\d+)\)/', $validationRole, $m)) {
             // var_dump($m[1][0]);
             if (!$this->min($value, $m[2][0])) {
               //اضافة النص الى رسائل الخطا
               $this->messenger->add($this->language->feedKey("text_error_" . $m[1][0], [$this->language->get('text_label_' . $fieldName), $m[2][0]]), Messenger::APP_MESSAGE_ERROR);
+              $errors[$fieldName] = true;
             }
           } elseif (preg_match_all('/(max)\((\d+)\)/', $validationRole, $m)) {
             // var_dump($m[1][0]);
             if (!$this->max($value, $m[2][0])) {
               //اضافة النص الى رسائل الخطا
               $this->messenger->add($this->language->feedKey("text_error_" . $m[1][0], [$this->language->get('text_label_' . $fieldName), $m[2][0]]), Messenger::APP_MESSAGE_ERROR);
+              $errors[$fieldName] = true;
             }
           } elseif (preg_match_all('/(lt)\((\d+)\)/', $validationRole, $m)) {
             // var_dump($m[1][0]);
-            if (!$this->ls($value, $m[2][0])) {
+            if (!$this->lt($value, $m[2][0])) {
               //اضافة النص الى رسائل الخطا
               $this->messenger->add($this->language->feedKey("text_error_" . $m[1][0], [$this->language->get('text_label_' . $fieldName), $m[2][0]]), Messenger::APP_MESSAGE_ERROR);
+              $errors[$fieldName] = true;
             }
           } elseif (preg_match_all('/(gt)\((\d+)\)/', $validationRole, $m)) {
             // var_dump($m[1][0]);
             if (!$this->gt($value, $m[2][0])) {
               //اضافة النص الى رسائل الخطا
               $this->messenger->add($this->language->feedKey("text_error_" . $m[1][0], [$this->language->get('text_label_' . $fieldName), $m[2][0]]), Messenger::APP_MESSAGE_ERROR);
+              $errors[$fieldName] = true;
             }
           } elseif (preg_match_all('/(between)\((\d+),(\d+)\)/', $validationRole, $m)) {
             // var_dump($m[1][0]);
             if (!$this->between($value, $m[2][0], $m[3][0])) {
               //اضافة النص الى رسائل الخطا
               $this->messenger->add($this->language->feedKey("text_error_" . $m[1][0], [$this->language->get('text_label_' . $fieldName), $m[2][0], $m[3][0]]), Messenger::APP_MESSAGE_ERROR);
+              $errors[$fieldName] = true;
             }
           } elseif (preg_match_all('/(floatLike)\((\d+),(\d+)\)/', $validationRole, $m)) {
             // var_dump($m[1][0]);
             if (!$this->floatLike($value, $m[2][0], $m[3][0])) {
               //اضافة النص الى رسائل الخطا
               $this->messenger->add($this->language->feedKey("text_error_" . $m[1][0], [$this->language->get('text_label_' . $fieldName), $m[2][0], $m[3][0]]), Messenger::APP_MESSAGE_ERROR);
+              $errors[$fieldName] = true;
             }
-          }else{
+          } elseif (preg_match_all('/(eq)\((\w+)\)/', $validationRole, $m)) {
+            // var_dump($m[1][0]);
+            if (!$this->eq($value, $m[2][0])) {
+              //اضافة النص الى رسائل الخطا
+              $this->messenger->add($this->language->feedKey("text_error_" . $m[1][0], [$this->language->get('text_label_' . $fieldName), $m[2][0]]), Messenger::APP_MESSAGE_ERROR);
+              $errors[$fieldName] = true;
+            }
+          } elseif (preg_match_all('/(eqField)\((\w+)\)/', $validationRole, $m)) {
+            $otherFiledValue = $inputType[$m[2][0]];
+            if (!$this->eqField($value, $otherFiledValue)) {
+              //اضافة النص الى رسائل الخطا
+              $this->messenger->add($this->language->feedKey("text_error_" . $m[1][0], [$this->language->get('text_label_' . $fieldName), $this->language->get('text_label_' . $m[2][0])]), Messenger::APP_MESSAGE_ERROR);
+              $errors[$fieldName] = true;
+            }
+          } else {
             if (!$this->$validationRole($value)) {
               //اضافة النص الى رسائل الخطا
               $this->messenger->add($this->language->feedKey("text_error_" . $validationRole, [$this->language->get('text_label_' . $fieldName)]), Messenger::APP_MESSAGE_ERROR);
+              $errors[$fieldName] = true;
             }
-            
           }
 
 

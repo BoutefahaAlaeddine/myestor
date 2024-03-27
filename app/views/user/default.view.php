@@ -22,6 +22,7 @@
         <th class="c-white t-trn-cp pad-10"><?= $text_table_username ?></th>
         <th class="c-white t-trn-cp pad-10"><?= $text_table_group ?></th>
         <th class="c-white t-trn-cp pad-10"><?= $text_table_email ?></th>
+        <th class="c-white t-trn-cp pad-10"><?= $text_table_phone_number ?></th>
         <th class="c-white t-trn-cp pad-10"><?= $text_table_subscription_date ?></th>
         <th class="c-white t-trn-cp pad-10"><?= $text_table_last_login ?></th>
         <th class="c-white t-trn-cp pad-10"><?= $text_table_control ?></th>
@@ -41,12 +42,13 @@
             <td class="pad-10"> <?php echo $user->GroupName ?></td>
             <td class="pad-10"> <?php echo $user->Email ?></td>
             <td class="pad-10"> <?php echo $user->PhoneNumber ?></td>
-            <td class="pad-10"> <?php echo $user->SubscriptionData ?></td>
-            <td class="pad-10"> <?php echo $user->LastLogon ?></td>
+            <td class="pad-10"> <?php echo $user->SubscriptionDate ?></td>
+            <td class="pad-10"> <?php echo $user->LastLogin ?></td>
             <td class="pad-10">
               <a class="t-trn-cp f-weg-bold" href="<?= MAIN_LINK . "user/edit/" . $user->UserId ?>"><i class="fa-solid fa-pen-to-square"></i><?= $text_table_edit ?></a>
+              |
+               <a class="t-trn-cp f-weg-bold" href="<?= MAIN_LINK . "user/delete/" . $user->UserId ?>" onclick="if(!confirm('<?= $text_table_control_delete_confirm ?>')) return false;"><i class="fa fa-trash"></i> <?= $text_table_delete ?></a>
 
-              | <a class="t-trn-cp f-weg-bold" href="<?= MAIN_LINK . "user/delete/" . $user->UserId ?>">onclick="if(!confirm(<?=$text_table_control_delete_confirm?>))return false;"><i class="fa fa_trash"></i> <?= $text_table_delete ?></a>
             </td>
           </tr>
 

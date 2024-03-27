@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPMVC\models;
 
 class UserModel extends AbstractModel
@@ -8,38 +9,48 @@ class UserModel extends AbstractModel
   protected $password;
   protected $Email;
   protected $PhoneNumber;
-  protected $SubscriptionData;
-  protected $LastLogon;
+  protected $SubscriptionDate;
+  protected $LastLogin;
   protected $GroupId;
+  protected $Status;
 
-  protected static $primaryKey="UserId";
+  protected static $primaryKey = "UserId";
   protected static $tableName = "app_users";
   protected static $tableSchema = array(
-    "Username" => self::DATA_TYPE_INT,
+    "Username" => self::DATA_TYPE_STR,
     "password" => self::DATA_TYPE_STR,
     "Email" => self::DATA_TYPE_STR,
     "PhoneNumber" => self::DATA_TYPE_STR,
-    "SubscriptionData" => self::DATA_TYPE_DATE,
-    "LastLogon" => self::DATA_TYPE_STR,
+    "SubscriptionDate" => self::DATA_TYPE_STR,
+    "LastLogin" => self::DATA_TYPE_STR,
     "GroupId" => self::DATA_TYPE_INT,
+    "Status" => self::DATA_TYPE_INT,
   );
 
-  public function __construct($Username, $password, $Email, $PhoneNumber, $SubscriptionData, $LastLogon, $GroupId)
+  public function __construct($Username, $password, $Email, $PhoneNumber, $SubscriptionDate, $LastLogin, $GroupId, $Status)
   {
     $this->Username = $Username;
     $this->password = $password;
     $this->Email = $Email;
     $this->PhoneNumber = $PhoneNumber;
-    $this->SubscriptionData = $SubscriptionData;
-    $this->LastLogon = $LastLogon;
+    $this->SubscriptionDate = $SubscriptionDate;
+    $this->LastLogin = $LastLogin;
     $this->GroupId = $GroupId;
+    $this->Status = $Status;
+  }
+  static function cryptPassword($password)
+  {
+    $salt = '$2a$07$OL3EQnBoyahYafbnlntbde$';
+    return  crypt($password,  $salt);
+  }
+  //تم التعديل في هذه الدالة
+  public static function getAll()
+  {
+    return self::get('SELECT au.* , aug.GroupName  GroupName FROM ' . self::$tableName . ' au INNER JOIN app_users_groups aug ON aug.GroupId=au.GroupId');
   }
 
   public function __get($prop)
   {
     return $this->$prop;
   }
-
-
 }
-?>

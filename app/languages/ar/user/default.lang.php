@@ -5,6 +5,7 @@ $_["text_add_user"]="اضافة مستخدم";
 $_["text_table_username"]="اسم المستخدم";
 $_["text_table_group"]="المجموعة التابع لها";
 $_["text_table_email"]="البريد الالكتروني";
+$_["text_table_phone_number"]="رقم الهاتف";
 $_["text_table_subscription_date"]="تاريخ الانضمام";
 $_["text_table_control_delete_confirm"]="هل انت متاكد من حذف هذا المستخدم";
 $_["text_table_last_login"]="اخر وقت دخول";
