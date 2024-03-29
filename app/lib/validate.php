@@ -1,7 +1,7 @@
 <?php
 
 namespace PHPMVC\LIB;
-
+//هذا الكلاس مسسول على تحقق من صحة المدخلات
 trait Validate
 {
   private $_regexPatterns = [

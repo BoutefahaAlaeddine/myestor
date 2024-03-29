@@ -26,6 +26,11 @@ class UserController extends abstractController
     "phoneNumber" => 'alphanum|max(10)',
     "GroupId" => 'req|int',
   ];
+  private $_editActionRoles =
+  [
+    "phoneNumber" => 'alphanum|max(10)',
+    "GroupId" => 'req|int',
+  ];
 
   public function defaultAction()
   {
@@ -46,27 +51,78 @@ class UserController extends abstractController
     $this->_data["groups"] = UserGroupsModel::getAll();
     if (isset($_POST["submit"]) && $this->isValid($this->_addActionRoles, $_POST)) {
       $username = $this->filterString($_POST["Username"]);
-      $password= UserModel::cryptPassword($_POST["Password"]);
-      $email=$this->filterString($_POST["Email"]);
-      $phoneNumber=$this->filterString($_POST["phoneNumber"]);
-      $groupId=$this->filterInt($_POST["GroupId"]);
-      $SubscriptionData=date("Y-m-d");
-      $LastLogin=date("Y-m-d H:i:s");
-      $Status=1;
-       $user=new UserModel( $username,$password,$email,$phoneNumber,$SubscriptionData,$LastLogin,$groupId,$Status);
-       if ($user->save()) {
-        $this->messenger->add($this->language->get("message_add_success"));
-       }else{
-        $this->messenger->add($this->language->get("message_add_failed"),Messenger::APP_MESSAGE_ERROR);
-       }
-       $this->redirect("user");
+      $password = UserModel::cryptPassword($_POST["Password"]);
+      $email = $this->filterString($_POST["Email"]);
+      $phoneNumber = $this->filterString($_POST["phoneNumber"]);
+      $groupId = $this->filterInt($_POST["GroupId"]);
+      $SubscriptionData = date("Y-m-d");
+      $LastLogin = date("Y-m-d H:i:s");
+      $Status = 1;
+      $user = new UserModel($username, $password, $email, $phoneNumber, $SubscriptionData, $LastLogin, $groupId, $Status);
+      if (UserModel::userExists($user->Username)) {
+        $this->messenger->add($this->language->get("message_user_exists"), Messenger::APP_MESSAGE_ERROR);
+        $this->redirect("user/add");
+      }
+      if (UserModel::EmailExists($user->Email)) {
+        $this->messenger->add($this->language->get("message_email_exists"), Messenger::APP_MESSAGE_ERROR);
+        $this->redirect("user/add");
+      }
 
+      //ارسل رسالة ترحيبة بلاميل
+      
+      if ($user->save()) {
+        $this->messenger->add($this->language->get("message_add_success"));
+      } else {
+        $this->messenger->add($this->language->get("message_add_failed"), Messenger::APP_MESSAGE_ERROR);
+      }
+      $this->redirect("user");
     }
     $this->_view();
   }
 
-  public function deleteAction()
+  public function editAction()
   {
+    $this->language->load("template.common");
+    //عمل رفع لمفات صفحة الاديت
+    $this->language->load("user.labels");
+    $this->language->load("user.messages");
+    $this->language->load("validation.errors");
+
+    //edit
+    if (!empty($this->_params)) {
+      $UserId = $this->filterInt($this->_params[0]);
+      $user = UserModel::getByPk($UserId);
+      if ($user == false) {
+        $this->redirect("user");
+      }
+
+      $this->_data["user"] = $user;
+      $this->_data["groups"] = UserGroupsModel::getAll();
+
+
+      //update
+      if (isset($_POST["submit"]) && $this->isValid($this->_editActionRoles, $_POST)) {
+        $phoneNumber = $this->filterString($_POST["phoneNumber"]);
+        $GroupId = $this->filterString($_POST["GroupId"]);
+        $UserModel = new UserModel($user->Username, $user->password, $user->Email, $phoneNumber, $user->SubscriptionDate, date("Y-m-d H:i:s"),  $GroupId, 1);
+        //لتاكيد انها تحديث
+        $UserModel->UserId =  $UserId;
+        if ($UserModel->save()) {
+          $this->messenger->add($this->language->get("message_add_success"));
+          $this->redirect("user");
+        } else {
+          $this->messenger->add($this->language->get("message_add_failed"), Messenger::APP_MESSAGE_ERROR);
+        }
+      }
+      $this->_view();
+    }
+  }
+
+
+
+  public function deleteAction()
+  {    $this->language->load("user.messages");
+
     $UserId = $this->filterInt($this->_params[0]);
     $UserModel = UserModel::getByPk($UserId);
     if ($UserModel == false) {
@@ -74,7 +130,7 @@ class UserController extends abstractController
     }
 
     if ($UserModel->delete()) {
-      $_SESSION["message"] = "user delete successfully";
+      $this->messenger->add($this->language->get("message_delete_success"));
       $this->redirect("user");
     }
   }

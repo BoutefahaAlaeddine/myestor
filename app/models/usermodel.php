@@ -48,6 +48,16 @@ class UserModel extends AbstractModel
   {
     return self::get('SELECT au.* , aug.GroupName  GroupName FROM ' . self::$tableName . ' au INNER JOIN app_users_groups aug ON aug.GroupId=au.GroupId');
   }
+  //دالة الحقق من وجود المستخدم
+  public static function userExists($Username)
+  {
+    return self::get('SELECT * FROM ' . self::$tableName . ' WHERE username="' . $Username . '"');
+  }
+  //دالة الحقق من وجود المستخدم
+  public static function EmailExists($Email)
+  {
+    return self::get('SELECT * FROM ' . self::$tableName . ' WHERE Email="' . $Email . '"');
+  }
 
   public function __get($prop)
   {
