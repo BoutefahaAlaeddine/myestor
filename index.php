@@ -7,6 +7,7 @@ use PHPMVC\LIB\FrontController;
 use PHPMVC\LIB\Template;
 use PHPMVC\LIB\Language;
 use PHPMVC\LIB\AppSessionHandler;
+use PHPMVC\LIB\Authentication;
 
 define('DS', DIRECTORY_SEPARATOR);
 
@@ -44,13 +45,15 @@ $language = new Language($template_pars);
 
 $messenger=Messenger::geInstance($session);
 
+$authentication=Authentication::geInstance($session);
+
 //اي كائن يحتاجو جميع الكنترولولز نتاوعي حطو في الريجيستري
 $registry=Registry::geInstance();
 $registry->session=$session;
 $registry->language=$language;
 $registry->messenger=$messenger;
 
-$frontController = new FrontController($template, $registry);
+$frontController = new FrontController($template, $registry,$authentication);
 
 
 $frontController->dispatch();

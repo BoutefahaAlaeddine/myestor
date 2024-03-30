@@ -33,6 +33,11 @@ class Template
   {
     $this->_data = $data;
   }
+  //التعديل في مسارات التي اريدها من الخارج
+  public function swapTemplate($template)
+  {
+    $this->_templateParts["template"] = $template;
+  }
 
   public function setRegistry($registry)
   {

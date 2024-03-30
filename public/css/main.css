@@ -4,6 +4,13 @@
   --third-color: #130f40;
   --transition: 0.3s;
 }
+body {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
 /*star header */
 .wrapper .header {
   padding: 10px 20px;
@@ -113,24 +120,24 @@
 .content .controller {
   margin-top: 100px;
 }
-.content .message {
+.message {
   margin-top: 10px;
 }
 
-.content  .message.t1{
-background-color: #27ae60;
+.message.t1 {
+  background-color: #27ae60;
 }
 
-.content  .message.t2 {
-background-color: #c0392b;
+.message.t2 {
+  background-color: #c0392b;
 }
-.content  .message.t3 {
-background-color: #2980b9;
+.message.t3 {
+  background-color: #2980b9;
 }
-.content  .message.t4 {
-background-color: #f39c12;
+.message.t4 {
+  background-color: #f39c12;
 }
-.content .controller a.add {
+.controller a.add {
   background-color: var(--main-color);
   width: 130px;
   margin-top: 5px;
@@ -246,3 +253,20 @@ background-color: #f39c12;
 /*end add & edit actions*/
 
 /*end content */
+/*star login*/
+.login {
+  margin: 100px auto;
+  width: 350px;
+  background-color: var(--main-color);
+  border-radius: 6px;
+  box-shadow: 4px 4px 6px 3px var(--second-color);
+
+}
+.login .logo {
+  width: 100px;
+}
+.login input[type="submit"] {
+  background-color: var(--second-color);
+  box-shadow: inset -2px -1px 5px 2px white;
+}
+/*end login*/

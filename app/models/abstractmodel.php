@@ -144,4 +144,10 @@ class AbstractModel
 
     return (is_array($results) && !empty($results)) ? $results : false;
   }
+
+  public static function getOne($sql, $options = array())
+  {
+      $result = static::get($sql, $options);
+      return $result === false ? false : $result;
+  }
 }

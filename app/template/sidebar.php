@@ -114,7 +114,7 @@
       </a>
     </li>
     <li  class="trans">
-      <a class="c-white d-block pad-10" href="<?= MAIN_LINK . "logout" ?>">
+      <a class="c-white d-block pad-10" href="<?= MAIN_LINK . "auth/logout" ?>">
         <i class="fa-solid m-rig-5 fa-right-from-bracket"></i>
         <span><?= $text_log_out ?></span>
       </a>

@@ -6,7 +6,7 @@ class UserModel extends AbstractModel
 {
   public $UserId;
   protected $Username;
-  protected $password;
+  protected $Password;
   protected $Email;
   protected $PhoneNumber;
   protected $SubscriptionDate;
@@ -18,7 +18,7 @@ class UserModel extends AbstractModel
   protected static $tableName = "app_users";
   protected static $tableSchema = array(
     "Username" => self::DATA_TYPE_STR,
-    "password" => self::DATA_TYPE_STR,
+    "Password" => self::DATA_TYPE_STR,
     "Email" => self::DATA_TYPE_STR,
     "PhoneNumber" => self::DATA_TYPE_STR,
     "SubscriptionDate" => self::DATA_TYPE_STR,
@@ -27,10 +27,10 @@ class UserModel extends AbstractModel
     "Status" => self::DATA_TYPE_INT,
   );
 
-  public function __construct($Username, $password, $Email, $PhoneNumber, $SubscriptionDate, $LastLogin, $GroupId, $Status)
+  public function __construct($Username, $Password, $Email, $PhoneNumber, $SubscriptionDate, $LastLogin, $GroupId, $Status)
   {
     $this->Username = $Username;
-    $this->password = $password;
+    $this->Password = $Password;
     $this->Email = $Email;
     $this->PhoneNumber = $PhoneNumber;
     $this->SubscriptionDate = $SubscriptionDate;
@@ -38,10 +38,9 @@ class UserModel extends AbstractModel
     $this->GroupId = $GroupId;
     $this->Status = $Status;
   }
-  static function cryptPassword($password)
+  static function cryptPassword($Password)
   {
-    $salt = '$2a$07$OL3EQnBoyahYafbnlntbde$';
-    return  crypt($password,  $salt);
+    return  crypt($Password, APP_SALT);
   }
   //تم التعديل في هذه الدالة
   public static function getAll()
@@ -57,6 +56,25 @@ class UserModel extends AbstractModel
   public static function EmailExists($Email)
   {
     return self::get('SELECT * FROM ' . self::$tableName . ' WHERE Email="' . $Email . '"');
+  }
+  public static function authenticate($username, $Password, $session)
+  {
+    $Password = self::cryptPassword($Password);
+    $sql = 'SELECT * FROM ' . self::$tableName . ' WHERE Username="' . $username . '" AND password= "' . $Password . '"';
+    $foundUser = self::getOne($sql);
+    if ($foundUser !== false) {
+      //حالة الحساب موجود لكن معطل
+      if ($foundUser[0]->Status == 2) {
+        return 2;
+      }
+      //الحساب مفعل
+      $foundUser[0]->LastLogin = date("Y-m-d H:i:s");
+      $foundUser[0]->save();
+      $session->u = $foundUser[0];
+      return 1;
+    }
+    //لا يوجد حساب
+    return 3;
   }
 
   public function __get($prop)

@@ -22,7 +22,7 @@
             <li><a class="pad-10 d-block trans" href=""> <i class="fa-solid fa-user"></i> <?= $text_my_profile ?></a></li>
             <li><a class="pad-10 d-block trans" href=""><i class="fa-solid fa-key"></i> <?= $text_change_password ?></a></li>
             <li><a class="pad-10 d-block trans" href=""><i class="fa-solid fa-gear"></i> <?= $text_account_settings ?></a></li>
-            <li><a class="pad-10 d-block trans" href=""><i class="fa-solid fa-right-from-bracket"></i> <?= $text_log_out ?></a></li>
+            <li><a class="pad-10 d-block trans" href="auth/logout"><i class="fa-solid fa-right-from-bracket"></i> <?= $text_log_out ?></a></li>
           </ul>
         </li>
 

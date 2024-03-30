@@ -31,3 +31,6 @@ defined('SESSION_SSL')         ? null : define('SESSION_SSL',False);
 defined('SESSION_HTTP_ONLY')         ? null : define('SESSION_HTTP_ONLY',true);
 defined('SESSION_DOMAIN')         ? null : define('SESSION_DOMAIN', "");
 defined('SESSION_TTL')         ? null : define('SESSION_TTL', 30);
+
+//salt
+defined('APP_SALT')         ? null : define('APP_SALT', '$2a$07$OL3EQnBoyahYafbnlntbde$');

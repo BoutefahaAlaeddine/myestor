@@ -13,7 +13,6 @@
     endforeach;
   endif;
   ?>
-
   <a href="<?= MAIN_LINK ?>user/add" class="add pad-5 c-white m-bot-5 t-alg-cn b-rad-5 t-trn-cp"><?= $text_add_user ?></a>
 
   <table class="tableInfo data">
