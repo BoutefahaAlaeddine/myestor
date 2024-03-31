@@ -17,7 +17,7 @@
         <li><a class="c-white" href=""><i class="fa-solid fa-bell"></i></a></li>
         <li><a class="c-white" href=""><i class="fa-solid fa-envelope"></i></a></li>
         <li class="p-rel c-pointer">
-          مرحبا عليلو <i class="fa-solid fa-angle-down"></i>
+          مرحبا <?=$this->session->u->profile->FirstName?> <i class="fa-solid fa-angle-down"></i>
           <ul class="other p-abs b-white index-100 d-none">
             <li><a class="pad-10 d-block trans" href=""> <i class="fa-solid fa-user"></i> <?= $text_my_profile ?></a></li>
             <li><a class="pad-10 d-block trans" href=""><i class="fa-solid fa-key"></i> <?= $text_change_password ?></a></li>

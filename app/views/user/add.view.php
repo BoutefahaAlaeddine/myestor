@@ -15,6 +15,16 @@
   <form action="" method="post" class="pad-10">
     <div class="row d-flex">
       <div class="inputs flex pad-5 p-rel">
+        <label for=""><?= $text_label_FirstName ?></label>
+        <input name="FirstName" type="text" placeholder="<?= $text_label_FirstName ?>">
+        <span class="p-abs bottom-0 left-0 trans"></span>
+      </div>
+      <div class="inputs flex pad-5 p-rel">
+        <label for=""><?= $text_label_LastName ?></label>
+        <input name="LastName" type="text" placeholder="<?= $text_label_LastName ?>">
+        <span class="p-abs bottom-0 left-0 trans"></span>
+      </div>
+      <div class="inputs flex pad-5 p-rel">
         <label for=""><?= $text_label_Username ?></label>
         <input name="Username" type="text" placeholder="<?= $text_label_Username ?>">
         <span class="p-abs bottom-0 left-0 trans"></span>

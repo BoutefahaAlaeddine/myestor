@@ -14,6 +14,10 @@ class UserModel extends AbstractModel
   protected $GroupId;
   protected $Status;
 
+  //user profile model
+  public $profile;
+  public $privileges;
+
   protected static $primaryKey = "UserId";
   protected static $tableName = "app_users";
   protected static $tableSchema = array(
@@ -42,10 +46,10 @@ class UserModel extends AbstractModel
   {
     return  crypt($Password, APP_SALT);
   }
-  //تم التعديل في هذه الدالة
-  public static function getAll()
+
+  public static function getUsers(UserModel $user)
   {
-    return self::get('SELECT au.* , aug.GroupName  GroupName FROM ' . self::$tableName . ' au INNER JOIN app_users_groups aug ON aug.GroupId=au.GroupId');
+    return self::get('SELECT au.* , aug.GroupName  GroupName FROM ' . self::$tableName . ' au INNER JOIN app_users_groups aug ON aug.GroupId=au.GroupId WHERE au.UserId !=' . $user->UserId);
   }
   //دالة الحقق من وجود المستخدم
   public static function userExists($Username)
@@ -60,7 +64,7 @@ class UserModel extends AbstractModel
   public static function authenticate($username, $Password, $session)
   {
     $Password = self::cryptPassword($Password);
-    $sql = 'SELECT * FROM ' . self::$tableName . ' WHERE Username="' . $username . '" AND password= "' . $Password . '"';
+    $sql = 'SELECT *,(SELECT GroupName FROM app_users_groups WHERE app_users_groups.GroupId=' . self::$tableName . '.GroupId ) GroupName FROM ' . self::$tableName . ' WHERE Username="' . $username . '" AND password= "' . $Password . '"';
     $foundUser = self::getOne($sql);
     if ($foundUser !== false) {
       //حالة الحساب موجود لكن معطل
@@ -69,6 +73,8 @@ class UserModel extends AbstractModel
       }
       //الحساب مفعل
       $foundUser[0]->LastLogin = date("Y-m-d H:i:s");
+      $foundUser[0]->profile = UserProfileModel::getByPk($foundUser[0]->UserId);
+      $foundUser[0]->privileges=UserGroupPrivilegeModel::getPrivilegesForGroup($foundUser[0]->GroupId);
       $foundUser[0]->save();
       $session->u = $foundUser[0];
       return 1;

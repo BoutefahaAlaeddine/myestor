@@ -3,6 +3,7 @@
 namespace PHPMVC\Controllers;
 
 use PHPMVC\models\UserGroupsModel;
+use PHPMVC\models\UserProfileModel;
 use PHPMVC\models\UserModel;
 use PHPMVC\LIB\InputFilter;
 use PHPMVC\LIB\Helper;
@@ -18,6 +19,8 @@ class UserController extends abstractController
 
   private $_addActionRoles =
   [
+    "FirstName"  => 'req|alpha|between(3,10)',
+    "LastName"  => 'req|alpha|between(3,10)',
     "Username"  => 'req|alphanum|between(3,12)',
     "Password"  => 'req|min(6)|eqField(CPassword)',
     'CPassword' => 'req|min(6)',
@@ -37,7 +40,8 @@ class UserController extends abstractController
     $this->language->load("template.common");
     $this->language->load("user.default");
     //تخزين الباينات في مصفوفة لاستدعئها في الفيو
-    $this->_data["users"] = UserModel::getAll();
+    $this->_data["users"] = UserModel::getUsers($this->session->u);
+    UserModel::getUsers($this->session->u);
     $this->_view();
   }
 
@@ -69,8 +73,13 @@ class UserController extends abstractController
       }
 
       //ارسل رسالة ترحيبة بلاميل
-      
+
       if ($user->save()) {
+        $userProfile = new UserProfileModel();
+        $userProfile->UserId = $this->filterInt( $user->UserId);
+        $userProfile->FirstName = $this->filterString($_POST["FirstName"]);
+        $userProfile->LastName = $this->filterString($_POST["LastName"]);
+        $userProfile->save(false);
         $this->messenger->add($this->language->get("message_add_success"));
       } else {
         $this->messenger->add($this->language->get("message_add_failed"), Messenger::APP_MESSAGE_ERROR);
@@ -92,7 +101,7 @@ class UserController extends abstractController
     if (!empty($this->_params)) {
       $UserId = $this->filterInt($this->_params[0]);
       $user = UserModel::getByPk($UserId);
-      if ($user == false) {
+      if ($user == false || $this->session->u->UserId== $UserId) {
         $this->redirect("user");
       }
 
@@ -121,11 +130,12 @@ class UserController extends abstractController
 
 
   public function deleteAction()
-  {    $this->language->load("user.messages");
+  {
+    $this->language->load("user.messages");
 
     $UserId = $this->filterInt($this->_params[0]);
     $UserModel = UserModel::getByPk($UserId);
-    if ($UserModel == false) {
+    if ($UserModel == false || $this->session->u->UserId== $UserId) {
       $this->redirect("user");
     }
 

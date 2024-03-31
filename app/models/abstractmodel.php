@@ -13,8 +13,8 @@ class AbstractModel
   const DATA_TYPE_DECIMAL = 4;
   const DATA_TYPE_DATE = 5;
   const VALIDATE_DATE_STRING = '/^[1-9][1-9][1-9][1-9]-[0-1]?[0-2]-(:[0-2]?[1-9]|[3][0-1])$/';
-  const VALIDATE_DATE_NUMERIC='^\d{6,8}$';
-  const DEFAULT_MYSQL_DATE='1970-01-01';
+  const VALIDATE_DATE_NUMERIC = '^\d{6,8}$';
+  const DEFAULT_MYSQL_DATE = '1970-01-01';
   // جلب أسماء الأعمدة
   private static function buildNameParameterSQL()
   {
@@ -68,8 +68,12 @@ class AbstractModel
   }
 
   //هذي تنفذ على حساب البرامري كي اذا حددتو معناها ساحدث والعكس صحيح
-  public function save()
+  public function save($primaryKeyCheck = true)
   {
+    if ($primaryKeyCheck == false) {
+      return $this->create();
+    }
+
     return $this->{static::$primaryKey} == null ? $this->create() : $this->update();
   }
 
@@ -147,7 +151,7 @@ class AbstractModel
 
   public static function getOne($sql, $options = array())
   {
-      $result = static::get($sql, $options);
-      return $result === false ? false : $result;
+    $result = static::get($sql, $options);
+    return $result === false ? false : $result;
   }
 }

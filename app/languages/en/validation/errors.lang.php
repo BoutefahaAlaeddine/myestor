@@ -1,0 +1,19 @@
+<?php
+$_['text_error_req']=' The %s field must contain the value';
+$_["text_error_num"]="%s field must be a number";
+$_["text_error_int"]="%s field must be a valid number";
+$_["text_error_float"]="%s field must be a decimal number";
+$_["text_error_alpha"]="%s field must contain only characters";
+$_["text_error_alphanum"]="The %s field must contain only letters and numbers";
+$_["text_error_eq"]="The %s field must be equal to %s";
+$_["text_error_eqField"]="%s field must be equal to %s";
+$_["text_error_lt"]="%s field must be less than %s";
+$_["text_error_gt"]="%s field must be greater than %s";
+$_["text_error_gt"]="%s field must be greater than %s";
+$_['text_error_min']='The %s field must be at least %s characters in value';
+$_['text_error_max']='Field %s must be at most %s characters long';
+$_['text_error_between']='%s field must have a value between %s and %s';
+$_['text_error_floatLike']="The %s field must be a decimal number consisting of %s, the number before the comma, and %s, the number after the comma";
+$_['text_error_vdate']='Field %s must be a date in YYYY-MM-DD format';
+$_['text_error_email']='Field %s must be email ex:someone@mail.com';
+$_['text_error_url']='Field %s must be a valid link ex:http://www.abc.com';

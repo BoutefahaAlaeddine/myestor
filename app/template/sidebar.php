@@ -1,8 +1,8 @@
 <div class="sidebar p-rel trans">
   <div class="head col a-itm-cn pad-20">
     <img class="avatar" src="<?= MAIN_SRC ?>/img/user.png" alt="" />
-    <h3 class="c-white d-block">علاء الدين</h3>
-    <span><?= $text_app_manager ?></span>
+    <h3 class="c-white d-block"><?=$this->session->u->profile->FirstName ." ".$this->session->u->profile->LastName  ?></h3>
+    <span><?=$this->session->u->GroupName?></span>
   </div>
   <ul class="links t-trn-cp">
     <li  class="trans">

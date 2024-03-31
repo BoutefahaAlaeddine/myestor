@@ -54,7 +54,6 @@ class FrontController
   {    //هذي تستدي الميتود والكلاس على حسب الرابط
     $controllerClassName = "PHPMVC\\Controllers\\" . ucfirst($this->_controller) . "Controller";
     $actionName = $this->_action . "Action";
-
     //التحقق من صلاحية دخول المستخدم ل
     if (!$this->_authentication->isAuthorized()) {
       $controllerClassName = "PHPMVC\\Controllers\AuthController";
@@ -65,6 +64,13 @@ class FrontController
     } else {
       if ($this->_controller == "auth" || $this->_action == "login") {
         isset($_SERVER["HTTP_REFERER"]) ? "" : $this->redirect("");
+      }
+      //التحقق من صلاحية المستخدم
+      if (!$this->_authentication->hasAccess($this->_controller, $this->_action)) {
+
+        if (class_exists($controllerClassName) || method_exists($controllerClassName, $actionName)) {
+          $this->redirect("accesdenied");
+        }
       }
     }
 

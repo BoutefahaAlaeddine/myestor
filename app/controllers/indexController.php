@@ -2,6 +2,8 @@
 
 namespace PHPMVC\Controllers;
 
+use PHPMVC\models\UserGroupPrivilegeModel;
+
 class IndexController extends abstractController
 {
   public function defaultAction()
