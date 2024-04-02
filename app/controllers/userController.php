@@ -113,7 +113,7 @@ class UserController extends abstractController
       if (isset($_POST["submit"]) && $this->isValid($this->_editActionRoles, $_POST)) {
         $phoneNumber = $this->filterString($_POST["phoneNumber"]);
         $GroupId = $this->filterString($_POST["GroupId"]);
-        $UserModel = new UserModel($user->Username, $user->password, $user->Email, $phoneNumber, $user->SubscriptionDate, date("Y-m-d H:i:s"),  $GroupId, 1);
+        $UserModel = new UserModel($user->Username, $user->Password, $user->Email, $phoneNumber, $user->SubscriptionDate, date("Y-m-d H:i:s"),  $GroupId, 1);
         //لتاكيد انها تحديث
         $UserModel->UserId =  $UserId;
         if ($UserModel->save()) {

@@ -66,12 +66,12 @@ class FrontController
         isset($_SERVER["HTTP_REFERER"]) ? "" : $this->redirect("");
       }
       //التحقق من صلاحية المستخدم
-      if (!$this->_authentication->hasAccess($this->_controller, $this->_action)) {
+      // if (!$this->_authentication->hasAccess($this->_controller, $this->_action)) {
 
-        if (class_exists($controllerClassName) || method_exists($controllerClassName, $actionName)) {
-          $this->redirect("accesdenied");
-        }
-      }
+      //   if (class_exists($controllerClassName) || method_exists($controllerClassName, $actionName)) {
+      //     $this->redirect("accesdenied");
+      //   }
+      // }
     }
 
     if (!class_exists($controllerClassName) || !method_exists($controllerClassName, $actionName)) {

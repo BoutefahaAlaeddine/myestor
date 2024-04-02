@@ -27,9 +27,9 @@ inputsInfo.forEach((inputInfo) => {
   input.className = inputInfo.className;
   input.type = inputInfo.type;
   if (inputInfo.type === "number") {
-    input.value = "2";
+    input.value = "10";
     input.min = "1";
-    input.max = "3";
+    input.max = "10";
   }
   inputs.appendChild(label);
   inputs.appendChild(input);
